@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Remarket – Pre-loved finds, second life</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF9F6;--ink:#1a1a1a;--mut:#6b6762;--card:#fff;--line:#e8e2da;--or:#F26A1B;--or2:#FFE9DA;--sand:#F1EBE2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161412;--ink:#f5f1ea;--mut:#a39d94;--card:#201d1a;--line:#34302b;--or2:#3a2415;--sand:#2a2622}}
+:root[data-theme="dark"]{--bg:#161412;--ink:#f5f1ea;--mut:#a39d94;--card:#201d1a;--line:#34302b;--or2:#3a2415;--sand:#2a2622}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'DM Sans',system-ui,sans-serif}
+h1,h2,h3,.logo b{font-family:'Bricolage Grotesque','DM Sans',sans-serif;letter-spacing:-.02em;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:16px;padding:10px 0}
+.logo{display:flex;align-items:center;gap:8px;background:none;border:0;padding:0}
+.logo img{height:44px;width:44px;object-fit:cover;border-radius:10px}
+.logo b{font-size:22px}
+.search{flex:1;display:flex;background:var(--sand);border-radius:99px;padding:0 16px;min-width:0}
+.search input{flex:1;border:0;background:none;padding:11px 0;outline:0;min-width:0}
+.btn{border:0;border-radius:99px;padding:10px 20px;font-weight:700;background:var(--or);color:#fff}
+.btn.alt{background:var(--ink);color:var(--bg)}.btn.ghost{background:var(--sand);color:var(--ink)}
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;padding:36px 0 20px}
+.hero h1{font-size:clamp(34px,6vw,60px);line-height:1;font-weight:800}
+.hero p{color:var(--mut);max-width:44ch;margin:16px 0 22px}
+.hero .acts{display:flex;gap:10px;flex-wrap:wrap}
+.promise{display:grid;gap:10px}
+.promise div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:flex;gap:12px;align-items:center}
+.promise div:nth-child(2){margin-left:24px;background:var(--or2)}
+.promise span{font-size:26px}.promise small{display:block;color:var(--mut)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0;scrollbar-width:none}
+.chip{white-space:nowrap;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:7px 16px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.row{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;padding-bottom:50px}
+.item{text-align:left;background:none;border:0;padding:0}
+.tile{aspect-ratio:1;border-radius:20px;display:grid;place-items:center;font-size:72px;position:relative}
+.tag{position:absolute;left:10px;top:10px;font-size:12px;font-weight:700;background:var(--card);padding:3px 10px;border-radius:99px;color:var(--ink)}
+.item h3{font-size:16px;margin:10px 0 2px;font-weight:600}
+.price{font-weight:700}.price s{color:var(--mut);font-weight:400;margin-left:6px}
+.meta{color:var(--mut);font-size:14px}
+.empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--mut)}
+dialog{border:0;border-radius:24px;padding:0;width:min(780px,94vw);background:var(--bg);color:var(--ink);max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.dlg{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:22px}
+.dlg .tile{font-size:110px}
+.x{position:absolute;right:14px;top:12px;border:0;background:var(--sand);width:36px;height:36px;border-radius:50%;font-size:18px}
+.sum{background:var(--sand);border-radius:16px;padding:12px 14px;margin:14px 0;font-size:14px}
+.sum p{display:flex;justify-content:space-between;margin:2px 0}
+.seller{display:flex;gap:10px;align-items:center;margin:12px 0}
+.av{width:40px;height:40px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-items:center;font-weight:700}
+.chat{background:var(--sand);border-radius:16px;padding:10px;margin-top:12px;display:none}
+.chat.on{display:block}
+.msgs{display:grid;gap:6px;font-size:14px;max-height:120px;overflow:auto}
+.msgs p{margin:0;padding:6px 12px;border-radius:14px;background:var(--card);justify-self:start;max-width:85%}
+.msgs p.me{background:var(--or);color:#fff;justify-self:end}
+.chat form{display:flex;gap:6px;margin-top:8px}.chat input{flex:1;border:1px solid var(--line);border-radius:99px;padding:8px 14px;background:var(--card);min-width:0}
+.sell{display:none;padding:34px 0 60px}
+.sell .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;margin-top:20px}
+label{display:grid;gap:5px;font-weight:700;font-size:14px;margin-bottom:14px}
+label input,label select,label textarea{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card);font-weight:400}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prev{position:sticky;top:90px;align-self:start}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:var(--ink);color:var(--bg);padding:12px 22px;border-radius:99px;transition:transform .3s;z-index:20;font-weight:500}
+.toast.on{transform:translate(-50%,0)}
+footer{border-top:1px solid var(--line);padding:24px 0;color:var(--mut);font-size:14px}
+@media (max-width:720px){.hero,.dlg,.sell .cols{grid-template-columns:1fr}.logo b{display:none}.bar .btn.alt{padding:10px 14px}.promise div:nth-child(2){margin-left:0}.prev{position:static}}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style></head><body>
+<header><div class="wrap bar">
+<button class="logo" onclick="go('home')" aria-label="Remarket home"><img src="data:image/png;base64,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" alt=""><b>Remarket</b></button>
+<label class="search" style="margin:0;display:flex"><span aria-hidden="true" style="padding-top:9px">🔍</span><input id="q" type="search" placeholder="Search jackets, phones, sneakers…" aria-label="Search items" style="border:0;background:none"></label>
+<button class="btn alt" onclick="go('sell')">+ Sell</button>
+</div></header>
+
+<main class="wrap" id="home">
+<section class="hero">
+<div><h1>Pre-loved finds. Second life. Extra cash.</h1>
+<p>Buy and sell second-hand clothes, gadgets and more from people near you. Pay less, earn more, waste nothing.</p>
+<div class="acts"><button class="btn" onclick="document.getElementById('feed').scrollIntoView({behavior:'smooth'})">Browse items</button><button class="btn ghost" onclick="go('sell')">List something to sell</button></div></div>
+<div class="promise">
+<div><span>💸</span><p style="margin:0"><b>Affordable</b><small>Keep most of what you earn</small></p></div>
+<div><span>🔒</span><p style="margin:0"><b>Secure</b><small>Payment held until you confirm receipt</small></p></div>
+<div><span>⚡</span><p style="margin:0"><b>Convenient</b><small>List in under a minute</small></p></div>
+</div></section>
+
+<div class="chips" id="chips" role="group" aria-label="Categories"></div>
+<div class="row" id="feed"><h2 id="ft">Fresh listings</h2><span class="meta" id="cnt"></span></div>
+<div class="grid" id="grid"></div>
+</main>
+
+<section class="wrap sell" id="sell">
+<button class="btn ghost" onclick="go('home')">← Back</button>
+<h1 style="margin-top:18px;font-size:clamp(30px,5vw,46px)">Sell an item</h1>
+<p class="meta">Set your own price. We take a 5% service fee only when it sells.</p>
+<div class="cols"><div>
+<label>Title<input id="st" placeholder="e.g. Denim jacket, size M" value="Vintage denim jacket"></label>
+<div class="two"><label>Category<select id="sc"></select></label><label>Condition<select id="sd"><option>Like new</option><option selected>Good</option><option>Fair</option></select></label></div>
+<label>Price (₱)<input id="sp" type="number" min="0" value="900"></label>
+<label>Description<textarea id="sx" rows="3">Light wear, no stains. Fits true to size.</textarea></label>
+<button class="btn" onclick="publish()">Publish listing</button>
+</div>
+<aside class="prev"><p class="meta" style="margin:0 0 8px">Preview</p><div id="pv"></div>
+<div class="sum"><p><span>Buyer pays</span><b id="a1"></b></p><p><span>Service fee (5%)</span><span id="a2"></span></p><p><span>You receive</span><b id="a3"></b></p></div></aside></div>
+</section>
+
+<footer><div class="wrap">Remarket · Affordable, convenient and secure second-hand shopping. Prototype with sample data.</div></footer>
+
+<dialog id="dlg"><button class="x" onclick="dlg.close()" aria-label="Close">✕</button><div class="dlg" id="dbody"></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const P=n=>'₱'+Number(n).toLocaleString();
+const CATS=['All','Clothing','Gadgets','Shoes','Home','Books'];
+let items=[
+{id:1,t:'Vintage denim jacket',c:'Clothing',p:850,o:1500,d:'Good',e:'🧥',bg:'#CFE0F0',s:'Mika R.',loc:'Quezon City',x:'Washed indigo, boxy fit. Worn a handful of times.'},
+{id:2,t:'iPhone 12 64GB',c:'Gadgets',p:14500,o:0,d:'Good',e:'📱',bg:'#E5DDF3',s:'Paolo D.',loc:'Makati',x:'Battery health 86%. Includes case and cable. Unlocked.'},
+{id:3,t:'White court sneakers, size 9',c:'Shoes',p:1200,o:2800,d:'Like new',e:'👟',bg:'#FFE9DA',s:'Ana L.',loc:'Pasig',x:'Worn twice. Original box included.'},
+{id:4,t:'Mechanical keyboard',c:'Gadgets',p:1800,o:0,d:'Good',e:'⌨️',bg:'#D9EDE0',s:'Jed C.',loc:'Mandaluyong',x:'Brown switches, hot-swappable. Minor keycap shine.'},
+{id:5,t:'Floral summer dress',c:'Clothing',p:450,o:900,d:'Like new',e:'👗',bg:'#F9DCE3',s:'Bea S.',loc:'Taguig',x:'Size S, lightweight cotton. Never altered.'},
+{id:6,t:'Desk lamp, warm light',c:'Home',p:350,o:0,d:'Fair',e:'💡',bg:'#FFF1BF',s:'Rico T.',loc:'Manila',x:'Works perfectly. Small scuff on the base.'},
+{id:7,t:'Haruki Murakami set (3 books)',c:'Books',p:600,o:0,d:'Good',e:'📚',bg:'#EBDCC8',s:'Lia P.',loc:'Marikina',x:'Paperbacks, slight yellowing on pages.'},
+{id:8,t:'Wireless earbuds',c:'Gadgets',p:950,o:2200,d:'Like new',e:'🎧',bg:'#D8E8F6',s:'Karl M.',loc:'Pasay',x:'Charging case included. Sanitised.'}];
+let cat='All';
+const $=id=>document.getElementById(id);
+function chips(){$('chips').innerHTML=CATS.map(c=>`<button class="chip" aria-pressed="${c===cat}" onclick="cat='${c}';render()">${c}</button>`).join('');$('sc').innerHTML=CATS.slice(1).map(c=>`<option>${c}</option>`).join('')}
+function card(i){return `<button class="item" onclick="open_(${i.id})"><div class="tile" style="background:${i.bg}">${i.e}<span class="tag">${i.d}</span></div><h3>${i.t}</h3><div class="price">${P(i.p)}${i.o?`<s>${P(i.o)}</s>`:''}</div><div class="meta">${i.loc}</div></button>`}
+function render(){chips();const q=$('q').value.toLowerCase();const l=items.filter(i=>(cat==='All'||i.c===cat)&&i.t.toLowerCase().includes(q));
+$('grid').innerHTML=l.length?l.map(card).join(''):'<div class="empty">No items match. Try another word or category.</div>';$('cnt').textContent=l.length+' items';$('ft').textContent=cat==='All'?'Fresh listings':cat}
+$('q').oninput=render;
+function open_(id){const i=items.find(x=>x.id===id),fee=Math.round(i.p*.05);
+$('dbody').innerHTML=`<div class="tile" style="background:${i.bg}">${i.e}</div><div><h2>${i.t}</h2><p class="price" style="font-size:24px;margin:6px 0">${P(i.p)}${i.o?`<s>${P(i.o)}</s>`:''}</p><p class="meta" style="margin:0">${i.d} · ${i.c} · ${i.loc}</p><p>${i.x}</p>
+<div class="seller"><div class="av">${i.s[0]}</div><div><b>${i.s}</b><div class="meta">Verified seller</div></div></div>
+<div class="sum"><p><span>Item</span><span>${P(i.p)}</span></p><p><span>Buyer protection fee</span><span>${P(fee)}</span></p><p><b>Total</b><b>${P(i.p+fee)}</b></p></div>
+<div style="display:flex;gap:8px"><button class="btn" style="flex:1" onclick="buy('${i.t}')">Buy securely</button><button class="btn ghost" onclick="$('chat').classList.toggle('on')">Message</button></div>
+<div class="chat" id="chat"><div class="msgs" id="msgs"><p>Hi! Is this still available?</p></div><form onsubmit="send(event,'${i.s}')"><input id="mi" placeholder="Write a message" aria-label="Message"><button class="btn">Send</button></form></div></div>`;
+dlg.showModal()}
+function send(e,s){e.preventDefault();const v=$('mi').value.trim();if(!v)return;$('msgs').insertAdjacentHTML('beforeend',`<p class="me">${v.replace(/</g,'&lt;')}</p>`);$('mi').value='';setTimeout(()=>{$('msgs').insertAdjacentHTML('beforeend',`<p>${s} replied: Yes, still available! 😊</p>`);$('msgs').scrollTop=999},800)}
+function buy(t){dlg.close();toast('Payment held securely. Seller notified about "'+t+'".')}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3200)}
+function go(v){$('home').style.display=v==='home'?'':'none';$('sell').style.display=v==='sell'?'block':'none';scrollTo(0,0);if(v==='sell')pv()}
+function pv(){const p=+$('sp').value||0,f=Math.round(p*.05);$('a1').textContent=P(p);$('a2').textContent='−'+P(f);$('a3').textContent=P(p-f);
+const i={id:0,t:$('st').value||'Your item',c:$('sc').value,p:p,o:0,d:$('sd').value,e:{Clothing:'👕',Gadgets:'📱',Shoes:'👟',Home:'🏠',Books:'📖'}[$('sc').value],bg:'#FFE9DA',loc:'Manila'};$('pv').innerHTML=card(i).replace('onclick="open_(0)"','')}
+['st','sc','sd','sp'].forEach(k=>$(k).addEventListener('input',pv));
+function publish(){const p=+$('sp').value;if(!$('st').value.trim()||!p){toast('Add a title and a price to publish.');return}
+const c=$('sc').value;items.unshift({id:Date.now(),t:$('st').value,c,p,o:0,d:$('sd').value,e:{Clothing:'👕',Gadgets:'📱',Shoes:'👟',Home:'🏠',Books:'📖'}[c],bg:'#FFE9DA',s:'You',loc:'Manila',x:$('sx').value});cat='All';$('q').value='';go('home');render();toast('Published! Your item is live.')}
+render();
+</script></body></html>
